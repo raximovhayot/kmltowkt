@@ -13,7 +13,7 @@ public abstract class FileWriter {
             File path = new File(fileData.getPath());
             if (!path.exists()) path.getParentFile().mkdirs();
             java.io.FileWriter writer = new java.io.FileWriter(path);
-            writer.write(data(fileData.getCityVO()));
+            writer.write(data(fileData.getCityVO(), Main.Configs.INSERT_QUERY));
             writer.flush();
             writer.close();
             System.out.println("File successfully wrote: " + fileData.getName());
@@ -22,7 +22,7 @@ public abstract class FileWriter {
         }
     }
 
-    public String data(CityVO cityVO) {
+    public String data(CityVO cityVO, boolean insert) {
         return cityVO.getArea();
     }
 }

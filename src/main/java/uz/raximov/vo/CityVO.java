@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CityVO {
+    private Long id;
     private String area;
     private String name;
     private String code;

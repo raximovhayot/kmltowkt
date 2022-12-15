@@ -31,6 +31,7 @@ public class Main {
         public static final Long COUNTRY_ID = 64L;
         public static final FileWriter fileWriter = new SqlWriter();
         public static final FileReader fileReader = new SimpleFileReader(Configs.MARKETPLACE_ID, Configs.CUSTOM,  Configs.COUNTRY_ID);
+        public static final Boolean INSERT_QUERY = false;
     }
 
     public static void main(String[] args) {

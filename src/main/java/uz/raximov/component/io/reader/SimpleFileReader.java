@@ -29,18 +29,25 @@ public class SimpleFileReader implements FileReader {
                 fileData.addAll(read(f));
                 continue;
             }
-
+            String fileName = f.getName();
+            Long id = null;
+            if (f.getName().contains(":")){
+                String[] strings = f.getName().split(":");
+                fileName = strings[0];
+                id = Long.valueOf(strings[1]);
+            }
             FileDataVO file = FileDataVO.builder()
-                    .name(f.getName())
+                    .name(fileName)
                     .path(f.getPath())
                     .cityVO( CityVO.builder()
+                            .id(id)
                             .area(readContent(f))
                             .marketplace_id(marketplaceId)
                             .custom(custom)
                             .country_id(countryId)
-                            .name(f.getName().replace(Main.Configs.TARGET_FILE_EXTENSION, ""))
-                            .code(f.getName().toLowerCase().replace(Main.Configs.TARGET_FILE_EXTENSION, "").replace(" ", "_"))
-                            .import_code(f.getName().toLowerCase().replace(Main.Configs.TARGET_FILE_EXTENSION, "").replace(" ", "_"))
+                            .name(fileName.replace(Main.Configs.TARGET_FILE_EXTENSION, ""))
+                            .code(fileName.toLowerCase().replace(Main.Configs.TARGET_FILE_EXTENSION, "").replace(" ", "_"))
+                            .import_code(fileName.toLowerCase().replace(Main.Configs.TARGET_FILE_EXTENSION, "").replace(" ", "_"))
                             .parent_name(f.getParentFile().getName())
                             .build() )
                     .build();
