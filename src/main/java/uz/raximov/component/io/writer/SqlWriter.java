@@ -14,11 +14,11 @@ public class SqlWriter extends FileWriter {
                         newId := nextval('hibernate_sequence');
                         raise notice '%', newId;
                         
-                        INSERT INTO emirate_areas(id, name, code, import_code, country_id, active, type, category, zindex, support2gis, level, parent_name, marketplace_id, custom)
-                        values (newId, ':name', ':code', ':import_code', :country_id, true, 'DOMESTIC', 'CITY', 0, false, 'L1', ':parent_name', :marketplace_id, :custom);
+                        INSERT INTO emirate_areas(id, name, code, import_code, country_id, active, type, category, zindex, support2gis, level, parent_name, marketplace_id, CUSTOM)
+                        values (newId, ':name', ':code', ':import_code', :country_id, true, 'DOMESTIC', 'CITY', 0, false, 'L1', ':parent_name', :marketplace_id, :CUSTOM);
                             
-                        UPDATE emirate_areas 
-                        SET areas = ST_Multi(ST_MakePolygon(ST_GeomFromKML(':polygon')))
+                        UPDATE emirate_areas\s
+                        SET areas = ST_Multi(ST_MakePolygon(ST_GeomFromText(':polygon')))
                         WHERE id = newId;
                     END
                $$;
@@ -28,7 +28,7 @@ public class SqlWriter extends FileWriter {
                   .replace(":country_id", String.valueOf(cityVO.getCountry_id()))
                   .replace(":parent_name", cityVO.getParent_name())
                   .replace(":marketplace_id", cityVO.getMarketplace_id().toString())
-                  .replace(":custom", cityVO.getCustom() ? "true" : "false")
+                  .replace(":CUSTOM", cityVO.getCustom() ? "true" : "false")
                   .replace(":polygon", cityVO.getArea());
     }
 }

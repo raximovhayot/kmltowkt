@@ -13,12 +13,12 @@ import java.util.Scanner;
 public class SimpleFileReader implements FileReader {
     private final Long marketplaceId;
     private final Boolean custom;
-    private final Long country_id;
+    private final Long countryId;
 
     public SimpleFileReader(Long marketplaceId, Boolean custom, Long countryId) {
         this.marketplaceId = marketplaceId;
         this.custom = custom;
-        country_id = countryId;
+        this.countryId = countryId;
     }
 
     @Override
@@ -37,10 +37,10 @@ public class SimpleFileReader implements FileReader {
                             .area(readContent(f))
                             .marketplace_id(marketplaceId)
                             .custom(custom)
-                            .country_id(country_id)
-                            .name(f.getName().replace(Main.Configs.targetFileExtension, ""))
-                            .code(f.getName().toLowerCase().replace(Main.Configs.targetFileExtension, "").replace(" ", "_"))
-                            .import_code(f.getName().toLowerCase().replace(Main.Configs.targetFileExtension, "").replace(" ", "_"))
+                            .country_id(countryId)
+                            .name(f.getName().replace(Main.Configs.TARGET_FILE_EXTENSION, ""))
+                            .code(f.getName().toLowerCase().replace(Main.Configs.TARGET_FILE_EXTENSION, "").replace(" ", "_"))
+                            .import_code(f.getName().toLowerCase().replace(Main.Configs.TARGET_FILE_EXTENSION, "").replace(" ", "_"))
                             .parent_name(f.getParentFile().getName())
                             .build() )
                     .build();

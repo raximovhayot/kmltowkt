@@ -17,17 +17,20 @@ import java.util.List;
 public class Main {
 
     @Getter
-    public static class Configs {
-        public static String targetDir = "kml";
-        public static String successDir = "success";
-        public static String failedDir = "failed";
-        public static String targetFileExtension = ".kml";
-        public static String successFileExtension = ".sql";
-        public static Long marketplaceId = 1L;
-        public static Boolean custom = false;
-        public static Long countryId = 64L;
-        public static FileWriter fileWriter = new SqlWriter();
-        public static FileReader fileReader = new SimpleFileReader(Configs.marketplaceId, Configs.custom,  Configs.countryId);
+    public static final class Configs {
+
+        private Configs() {}
+
+        private static final String TARGET_DIR = "kml1";
+        public static final String SUCCESS_DIR = "success";
+        public static final String FAILED_DIR = "failed";
+        public static final String TARGET_FILE_EXTENSION = ".kml";
+        public static final String SUCCESS_FILE_EXTENSION = ".sql";
+        public static final Long MARKETPLACE_ID = 1L;
+        public static final Boolean CUSTOM = false;
+        public static final Long COUNTRY_ID = 64L;
+        public static final FileWriter fileWriter = new SqlWriter();
+        public static final FileReader fileReader = new SimpleFileReader(Configs.MARKETPLACE_ID, Configs.CUSTOM,  Configs.COUNTRY_ID);
     }
 
     public static void main(String[] args) {
@@ -35,14 +38,14 @@ public class Main {
         FileWriter fileWriter = Configs.fileWriter;
         FileReader fileReader = Configs.fileReader;
 
-        List<FileDataVO> files = fileReader.read(new File(Configs.targetDir));
+        List<FileDataVO> files = fileReader.read(new File(Configs.TARGET_DIR));
         files.stream()
                 .peek(fd -> {
                     WKTResponse response = trailForksHandler.request(new RMSDObject(fd.getCityVO().getArea()), new Gson());
                     fd.setValid(response.isStatus());
                     fd.getCityVO().setArea(response.getRmsD());
-                    fd.setPath(fd.getPath().replace(Configs.targetFileExtension, Configs.successFileExtension));
-                    fd.setPath(fd.getPath().replace(Configs.targetDir, Configs.successDir));
+                    fd.setPath(fd.getPath().replace(Configs.TARGET_FILE_EXTENSION, Configs.SUCCESS_FILE_EXTENSION));
+                    fd.setPath(fd.getPath().replace(Configs.TARGET_DIR, Configs.SUCCESS_DIR));
                 })
                 .forEach(fileWriter::write);
     }

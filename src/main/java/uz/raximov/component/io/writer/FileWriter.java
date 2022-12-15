@@ -9,7 +9,7 @@ import java.io.File;
 public abstract class FileWriter {
     public void write(FileDataVO fileData) {
         try {
-            if (!fileData.isValid()) fileData.setPath(fileData.getPath().replace(Main.Configs.successDir, Main.Configs.failedDir));
+            if (!fileData.isValid()) fileData.setPath(fileData.getPath().replace(Main.Configs.SUCCESS_DIR, Main.Configs.FAILED_DIR));
             File path = new File(fileData.getPath());
             if (!path.exists()) path.getParentFile().mkdirs();
             java.io.FileWriter writer = new java.io.FileWriter(path);
