@@ -41,6 +41,6 @@ public class SqlWriter extends FileWriter {
                          WHERE id = :id;
                 """
                 .replace(":polygon", cityVO.getArea())
-                .replace(":id", String.valueOf(cityVO.getId()) != null ? String.valueOf(cityVO.getId()) : "newId");
+                .replace(":id", cityVO.getId() != null ? String.valueOf(cityVO.getId()) : "newId");
     }
 }
